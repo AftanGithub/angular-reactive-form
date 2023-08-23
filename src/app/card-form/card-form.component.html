@@ -2,13 +2,27 @@
 
     <input formControlName="name" />
 
+    <ng-container *ngIf="cardForm.controls.name.errors && (cardForm.dirty || cardForm.touched)">
+            <div class="notification p-2 m-2 is-danger w-25" *ngIf="cardForm.controls.name.errors['required']">
+                
+                Value is Required
+            </div>
+            <div class="notification p-2 m-2 is-danger w-25" *ngIf="cardForm.controls.name.errors['minlength']">
+                
+                Value should be longer or equal to {{cardForm.controls.name.errors['minlength']['requiredLength']}} Characters
+            </div>
+    </ng-container>
 </form>
 
-<!-- debug stuff
+<!-- debug stuff -->
 <div>
     form contents: {{cardForm.value | json}}
 </div>
 
 <div>
     form valid: {{cardForm.valid}}
-</div> -->
+</div>
+
+<div>
+    Errors name errors: {{cardForm.controls.name.errors | json}}
+</div>
