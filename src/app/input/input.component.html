@@ -1,0 +1,21 @@
+<label>{{label}}</label>
+<input  [formControl]="control" class="input" [ngClass]="{'is-danger':showErrors()}" />
+
+<ng-container *ngIf="control.errors && showErrors()">
+        <div class="help p-2 m-2 is-danger w-25" *ngIf="control.errors['pattern']">
+                
+           Invalid Format
+        </div>
+        <div class="help p-2 m-2 is-danger w-25" *ngIf="control.errors['required']">
+            
+            Value is Required
+        </div>
+        <div class="help p-2 m-2 is-danger w-25" *ngIf="control.errors['minlength']">
+            
+            Value should be longer or equal to {{control.errors['minlength']['requiredLength']}} Characters
+        </div>
+        <div class="help p-2 m-2 is-danger w-25" *ngIf="control.errors['maxlength']">
+            
+            Value should be less than or equal to {{control.errors['maxlength']['requiredLength']}} Characters, But you entered {{control.errors['maxlength']['actualLength']}} Characters!
+        </div>
+</ng-container>

@@ -1,28 +1,35 @@
-<form [formGroup]="cardForm">
+<div class="columns p-5 mt-5">
+ 
+    <div class="column">
 
-    <input formControlName="name" />
+        <app-card [name]="cardForm.get('name')?.value" 
+        [cardNumber]="cardForm.get('cardNumber')?.value" 
+        [expiration]="cardForm.get('expiration')?.value">
+        
+        </app-card>
 
-    <ng-container *ngIf="cardForm.controls.name.errors && (cardForm.dirty || cardForm.touched)">
-            <div class="notification p-2 m-2 is-danger w-25" *ngIf="cardForm.controls.name.errors['required']">
-                
-                Value is Required
-            </div>
-            <div class="notification p-2 m-2 is-danger w-25" *ngIf="cardForm.controls.name.errors['minlength']">
-                
-                Value should be longer or equal to {{cardForm.controls.name.errors['minlength']['requiredLength']}} Characters
-            </div>
-    </ng-container>
-</form>
+    </div>
 
-<!-- debug stuff -->
-<div>
-    form contents: {{cardForm.value | json}}
+
+<div class="column">
+    <h1 class="title">Enter your card details below:</h1>
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+        <app-input [label]="'Name'" [control]="cardForm.controls.name"></app-input>
+        <app-input [label]="'Card Number'" [control]="cardForm.controls.cardNumber"></app-input>
+        <div class="columns">
+           <div class="column">
+            <app-input [label]="'Expiration'" [control]="cardForm.controls.expiration"></app-input>
+           </div>
+           <div class="column">
+            <app-input  [label]="'Security Code'" [control]="cardForm.controls.securityCode"></app-input>
+           </div>
+        </div>
+       <div class="buttons">
+        <button class="button is-primary mt-3" type="submit" [disabled]="cardForm.invalid">Submit</button>
+        <button class="button is-warning ml-3 mt-3" type="button" (click)="onResetClick()" >Reset</button>
+       </div>
+    </form>
 </div>
 
-<div>
-    form valid: {{cardForm.valid}}
-</div>
 
-<div>
-    Errors name errors: {{cardForm.controls.name.errors | json}}
 </div>
